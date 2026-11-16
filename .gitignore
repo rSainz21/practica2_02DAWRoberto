@@ -1,0 +1,10 @@
+# Variables reales (IP, datos personales): nunca se suben
+.env
+scripts/.env
+
+# Claves privadas y material criptográfico
+*.key
+*.pem
+*.csr
+*.p12
+*.pfx
