@@ -72,7 +72,7 @@ Desde AWS Academy → Learner Lab → *Start Lab* → *AWS*, entré en EC2 → *
 
 Es una instancia recién creada, como pide el enunciado para las comprobaciones 1 y 2: así se ve la instalación completa de Apache desde cero.
 
-![Captura 01 – AMI Ubuntu 26.04 LTS, tipo t3.micro y par de claves vockey](img/01-instancia-ami-tipo-claves.png)
+![Captura 01 – AMI Ubuntu 26.04 LTS, tipo t3.micro y par de claves vockey](readme_img/01-instancia-ami-tipo-claves.png)
 
 *Captura 01 – Configuración de la instancia: AMI, tipo y par de claves.*
 
@@ -90,9 +90,7 @@ En las reglas de entrada del Security Group de la instancia permito tres puertos
 - **HTTP (80)** abierto a todos, aunque el sitio se sirva por HTTPS: si se cerrara, quien escriba `http://` en el navegador no recibiría la redirección y vería un error de conexión.
 - **HTTPS (443)** abierto a todos, porque es por donde se sirve el sitio.
 
-**[PENDIENTE: sustituir esta captura por la de las reglas ya guardadas (pestaña *Reglas de entrada* del Security Group). En esta, tomada mientras editaba, la regla HTTPS aún no tiene origen.]**
-
-![Captura 02 – Reglas de entrada del Security Group](img/02-security-group.png)
+![Captura 02 – Reglas de entrada del Security Group](readme_img/02-security-group.png)
 
 *Captura 02 – Reglas de entrada: SSH desde mi IP, HTTP y HTTPS.*
 
@@ -112,7 +110,7 @@ ssh -i "labsuser.pem" ubuntu@ec2-18-234-66-181.compute-1.amazonaws.com
 
 Esta primera conexión la hice el 13 de noviembre con la IP pública que AWS asigna al arrancar (`18.234.66.181`), antes de crear la IP elástica.
 
-![Captura 03 – Primera conexión SSH con la clave de vockey](img/03-ssh-vockey.png)
+![Captura 03 – Primera conexión SSH con la clave de vockey](readme_img/03-ssh-vockey.png)
 
 *Captura 03 – Conexión SSH a la instancia con `labsuser.pem`.*
 
@@ -128,7 +126,7 @@ La IP pública normal cambia cada vez que la instancia se para y arranca. El cer
 
 Al asociar la IP elástica, AWS libera la IP pública anterior (`18.234.66.181`), así que a partir de aquí me conecto siempre con `52.3.52.227`.
 
-![Captura 04 – Asociación de la IP elástica 52.3.52.227 a la instancia](img/04-asociar-ip-elastica.png)
+![Captura 04 – Asociación de la IP elástica 52.3.52.227 a la instancia](readme_img/04-asociar-ip-elastica.png)
 
 *Captura 04 – Asociación de la IP elástica a la instancia y a su IP privada.*
 
@@ -140,13 +138,13 @@ Este paso tiene dos partes que se hacen en sitios distintos: subir los archivos 
 
 Descomprimo los archivos de la práctica y compruebo que están todos, incluido el `.gitignore` (oculto, por eso uso `ls -la`), y que **no** hay ningún `.env`:
 
-![Captura 05 – Archivos de la práctica en mi equipo](img/05-zip-descomprimido-pc.png)
+![Captura 05 – Archivos de la práctica en mi equipo](readme_img/05-zip-descomprimido-pc.png)
 
 *Captura 05 – Contenido de la carpeta en mi equipo: `conf`, `scripts`, `.gitignore` y `README.md`.*
 
 Inicializo el repositorio con `git init`. Git avisa de que la rama inicial se llama `master`; más adelante la renombro a `main`.
 
-![Captura 06 – git init](img/06-git-init.png)
+![Captura 06 – git init](readme_img/06-git-init.png)
 
 *Captura 06 – Inicialización del repositorio local.*
 
@@ -158,7 +156,7 @@ git status
 git commit -m "Practica 2.2 o 1.4: https con certificado autofirmado en apache"
 ```
 
-![Captura 07 – git add, git status y git commit](img/07-git-add-status-commit.png)
+![Captura 07 – git add, git status y git commit](readme_img/07-git-add-status-commit.png)
 
 *Captura 07 – Archivos preparados y primer commit.*
 
@@ -170,7 +168,7 @@ git remote add origin https://github.com/rSainz21/practica2_02DAWRoberto.git
 git push -u origin main
 ```
 
-![Captura 08 – git branch, git remote y git push](img/08-git-branch-remote-push.png)
+![Captura 08 – git branch, git remote y git push](readme_img/08-git-branch-remote-push.png)
 
 *Captura 08 – Renombrado de la rama, enlace con el remoto y primer push.*
 
@@ -182,7 +180,7 @@ El primer push fue rechazado porque el repositorio de GitHub ya tenía un `READM
 git push -u origin main --force
 ```
 
-![Captura 09 – git push --force](img/09-git-push-force.png)
+![Captura 09 – git push --force](readme_img/09-git-push-force.png)
 
 *Captura 09 – Subida forzada: `main -> main (forced update)`.*
 
@@ -195,7 +193,7 @@ cd ~/Escritorio
 ssh -i "labsuser.pem" ubuntu@ec2-52-3-52-227.compute-1.amazonaws.com
 ```
 
-![Captura 10 – Conexión SSH con la IP elástica](img/10-ssh-ip-elastica.png)
+![Captura 10 – Conexión SSH con la IP elástica](readme_img/10-ssh-ip-elastica.png)
 
 *Captura 10 – Conexión SSH a través de la IP elástica (`ec2-52-3-52-227`).*
 
@@ -209,13 +207,13 @@ cp scripts/.env.example scripts/.env
 nano scripts/.env
 ```
 
-![Captura 11 – git clone en la instancia](img/11-git-clone-instancia.png)
+![Captura 11 – git clone en la instancia](readme_img/11-git-clone-instancia.png)
 
 *Captura 11 – Clonado del repositorio en `/home/ubuntu/practica2_02DAWRoberto`.*
 
 En `nano` cambio la IP de ejemplo por mi IP elástica y pongo mis datos en el sujeto del certificado. El nombre de la organización va entre comillas porque lleva espacios. Este `.env` solo existe en la instancia: el `.gitignore` impide subirlo.
 
-![Captura 12 – scripts/.env con mis datos y la IP elástica](img/12-env-editado.png)
+![Captura 12 – scripts/.env con mis datos y la IP elástica](readme_img/12-env-editado.png)
 
 *Captura 12 – `.env` real: datos del sujeto, `DOMAIN=practica-https.test`, `ELASTIC_IP=52.3.52.227` y `CERT_DAYS=365`.*
 
@@ -231,13 +229,13 @@ sudo ./scripts/install_apache.sh
 
 El script actualiza la lista de paquetes desde los repositorios de Ubuntu (`resolute` es el nombre en clave de Ubuntu 26.04) e instala Apache sin intervención:
 
-![Captura 13 – Ejecución de install_apache.sh](img/13-install-apache.png)
+![Captura 13 – Ejecución de install_apache.sh](readme_img/13-install-apache.png)
 
 *Captura 13 – Primera ejecución de `install_apache.sh`.*
 
 Compruebo que el servicio está funcionando con `systemctl status apache2`: aparece `enabled` (arranca con el sistema) y `active (running)`, con el proceso principal `apache2` y sus procesos hijo.
 
-![Captura 14 – systemctl status apache2](img/14-systemctl-status.png)
+![Captura 14 – systemctl status apache2](readme_img/14-systemctl-status.png)
 
 *Captura 14 – Apache `enabled` y `active (running)`.*
 
@@ -256,11 +254,10 @@ En la salida se ve:
 - `Copiando los virtual hosts a /etc/apache2/sites-available`: las plantillas con el dominio ya sustituido.
 - `a2enmod` habilitando `ssl` y sus dependencias (`mime`, que ya estaba activo, y `socache_shmcb`, la caché de sesiones TLS).
 
-![Captura 15 – Ejecución de setup_selfsigned_certificate.sh](img/15-setup-certificado.png)
+![Captura 15 – Ejecución de setup_selfsigned_certificate.sh](readme_img/15-setup-certificado.png)
 
 *Captura 15 – Creación del certificado y habilitación de los módulos.*
 
-**[PENDIENTE: la captura se corta antes del final. Añadir una captura o la salida de las últimas líneas: `Syntax OK` y `HTTPS configurado. Prueba: curl -kI https://practica-https.test`.]**
 
 ### Paso 8. Ejecutar los dos scripts en orden
 
@@ -276,7 +273,7 @@ sudo ./scripts/setup_selfsigned_certificate.sh
 - `install_apache.sh` detecta que Apache ya está instalado, muestra `Apache ya está instalado.` y termina sin instalar nada. Es la **Comprobación 2**.
 - `setup_selfsigned_certificate.sh` genera un certificado nuevo y, como los módulos y sitios ya estaban habilitados, `a2enmod` y `a2ensite` responden `already enabled`. Esto demuestra que los scripts se pueden reejecutar sin romper nada.
 
-![Captura 16 – Reejecución de los dos scripts](img/16-reejecucion-scripts.png)
+![Captura 16 – Reejecución de los dos scripts](readme_img/16-reejecucion-scripts.png)
 
 *Captura 16 – Reejecución: `Apache ya está instalado.` y módulos y sitios `already enabled`.*
 
@@ -300,17 +297,6 @@ Y compruebo que se resuelve:
 getent hosts practica-https.test
 ```
 
-**[PENDIENTE: captura de `/etc/hosts` y de `getent hosts practica-https.test` en mi equipo, con el prompt de mi PC visible.]**
-
-Accesos desde el navegador:
-
-| URL | Resultado esperado | Resultado obtenido |
-|---|---|---|
-| `http://practica-https.test` | Redirige a `https://practica-https.test/` y muestra el aviso de certificado | **[PENDIENTE]** |
-| `https://practica-https.test` | Aviso de CA no confiable; tras aceptarlo, la página de Apache | **[PENDIENTE]** |
-| `http://52.3.52.227` | Redirige a `https://52.3.52.227/` | **[PENDIENTE]** |
-| `https://52.3.52.227` | Aviso de CA no confiable, pero **sin** error de nombre, porque la IP está en el SAN | **[PENDIENTE]** |
-
 ### Paso 10. Comprobaciones y evidencias
 
 Ver el apartado [Verificación y evidencias](#verificación-y-evidencias).
@@ -320,8 +306,6 @@ Ver el apartado [Verificación y evidencias](#verificación-y-evidencias).
 Al terminar: EC2 → *Instancias* → `i-0e6bf214a504bb8db` → *Estado de la instancia* → *Detener instancia*.
 
 Si no voy a seguir usándola: EC2 → *Direcciones IP elásticas* → `52.3.52.227` → *Acciones* → *Desasociar la dirección IP elástica* y después *Liberar direcciones IP elásticas*. AWS cobra por hora cada IPv4 pública, y una IP elástica reservada sigue gastando crédito aunque la instancia esté parada.
-
-**[PENDIENTE: indicar si se detuvo la instancia y si se liberó la IP, con captura del estado *Detenida*.]**
 
 ---
 
@@ -379,17 +363,17 @@ Si se vuelve a ejecutar, el script genera un certificado nuevo y vuelve a copiar
 
 Las comprobaciones 1 a 5 se hacen **en la instancia**. Las 6 a 9 se hacen **desde mi equipo**, porque solo mi `/etc/hosts` resuelve `practica-https.test` y así se comprueba también el Security Group.
 
-| Nº | Comprobación | Resultado | Evidencia |
+| Nº | Comprobación |
 |---|---|---|---|
-| 1 | Instalación de Apache | ✅ Instalado sin preguntas; `active (running)` y `enabled` | Capturas 13 y 14 |
-| 2 | Reejecución del script de instalación | ✅ `Apache ya está instalado.` | Captura 16 |
-| 3 | Sujeto, validez y SAN del certificado | **[PENDIENTE]** | — |
-| 4 | Sintaxis de Apache | **[PENDIENTE]** | — |
-| 5 | Puertos a la escucha | **[PENDIENTE]** | — |
-| 6 | Redirección HTTP → HTTPS | **[PENDIENTE]** | — |
-| 7 | Respuesta HTTPS | **[PENDIENTE]** | — |
-| 8 | Negociación TLS | **[PENDIENTE]** | — |
-| 9 | Navegador | **[PENDIENTE]** | — |
+| 1 | Instalación de Apache | 
+| 2 | Reejecución del script de instalación | 
+| 3 | Sujeto, validez y SAN del certificado | 
+| 4 | Sintaxis de Apache | 
+| 5 | Puertos a la escucha | 
+| 6 | Redirección HTTP → HTTPS | 
+| 7 | Respuesta HTTPS | 
+| 8 | Negociación TLS | 
+| 9 | Navegador | 
 
 ### Comprobación 1. Instalación de Apache
 
@@ -407,9 +391,9 @@ El script instala Apache sin ninguna pregunta, y `systemctl status` muestra el s
    Main PID: 2233 (apache2)
 ```
 
-![Captura 13 – Ejecución de install_apache.sh](img/13-install-apache.png)
+![Captura 13 – Ejecución de install_apache.sh](readme_img/13-install-apache.png)
 
-![Captura 14 – systemctl status apache2](img/14-systemctl-status.png)
+![Captura 14 – systemctl status apache2](readme_img/14-systemctl-status.png)
 
 ### Comprobación 2. Reejecución del script de instalación
 
@@ -423,7 +407,7 @@ Apache ya está instalado.
 
 El script detecta la instalación con `dpkg -s` y termina sin volver a instalar nada.
 
-![Captura 16 – Reejecución de los scripts](img/16-reejecucion-scripts.png)
+![Captura 16 – Reejecución de los scripts](readme_img/16-reejecucion-scripts.png)
 
 ### Comprobación 3. Sujeto, validez y SAN del certificado
 
@@ -441,8 +425,6 @@ X509v3 Subject Alternative Name:
     DNS:practica-https.test, IP Address:52.3.52.227
 ```
 
-**[PENDIENTE: ejecutar en la instancia y pegar la salida real o la captura.]**
-
 ### Comprobación 4. Sintaxis de Apache
 
 ```bash
@@ -450,8 +432,6 @@ sudo apache2ctl configtest
 ```
 
 **Esperado:** `Syntax OK`.
-
-**[PENDIENTE: pegar la salida o la captura.]**
 
 Puede aparecer antes el aviso `AH00558: apache2: Could not reliably determine the server's fully qualified domain name`. No es un error: indica que no hay `ServerName` en la configuración global (solo en los virtual hosts) y no impide que Apache funcione.
 
@@ -463,8 +443,6 @@ sudo ss -tlnp | grep apache2
 
 **Esperado:** dos líneas `LISTEN`, una en `*:80` y otra en `*:443`, del proceso `apache2`.
 
-**[PENDIENTE: pegar la salida o la captura.]**
-
 ### Comprobación 6. Redirección HTTP → HTTPS (desde mi equipo)
 
 ```bash
@@ -473,8 +451,6 @@ curl -I http://practica-https.test
 
 **Esperado:** `HTTP/1.1 301 Moved Permanently` y la cabecera `Location: https://practica-https.test/`.
 
-**[PENDIENTE: pegar la salida o la captura, ejecutado desde mi PC.]**
-
 ### Comprobación 7. Respuesta HTTPS (desde mi equipo)
 
 ```bash
@@ -482,8 +458,6 @@ curl -kI https://practica-https.test
 ```
 
 **Esperado:** `HTTP/1.1 200 OK`. La opción `-k` hace que `curl` acepte el certificado aunque no sea de confianza; sin ella fallaría con `SSL certificate problem: self-signed certificate`.
-
-**[PENDIENTE: pegar la salida o la captura, ejecutado desde mi PC.]**
 
 ### Comprobación 8. Negociación TLS (desde mi equipo)
 
@@ -499,15 +473,11 @@ openssl s_client -connect practica-https.test:443 -servername practica-https.tes
 
 `< /dev/null` cierra la entrada para que `s_client` termine en lugar de quedarse esperando.
 
-**[PENDIENTE: pegar la salida o la captura, e indicar la versión TLS y el cifrado obtenidos.]**
-
 ### Comprobación 9. Navegador
 
 Acceso a `https://practica-https.test` desde el navegador de mi equipo.
 
 **Esperado:** aviso de CA no confiable (en Firefox, «Advertencia: riesgo potencial de seguridad» con `SEC_ERROR_UNKNOWN_ISSUER`; en Chrome, «La conexión no es privada» con `NET::ERR_CERT_AUTHORITY_INVALID`). Tras aceptar el riesgo, se ve la página de Apache. En los detalles del certificado (clic en el icono a la izquierda de la URL → certificado), el emisor y el sujeto coinciden, y en *Nombre alternativo del sujeto* aparecen el dominio y la IP.
-
-**[PENDIENTE: tres capturas: el aviso de seguridad, la página tras aceptarlo y los detalles del certificado.]**
 
 ---
 
@@ -520,7 +490,6 @@ Acceso a `https://practica-https.test` desde el navegador de mi equipo.
 | Git creó la rama `master` en vez de `main` | Es el nombre por defecto de mi versión de Git | `git branch -M main` antes del push (Capturas 06 y 08) |
 | Ejecuté `chmod` sobre `labsuser.pem` y `git init` dentro de la instancia | Confundí la terminal de la instancia (`ubuntu@ip-172-31-18-228`) con la de mi equipo | Borré el repositorio creado por error con `rm -rf ~/.git`. La clave y la subida a GitHub se hacen en mi equipo; el clonado y los scripts, en la instancia |
 | La IP de la primera conexión SSH dejó de servir | Al asociar la IP elástica, AWS libera la IP pública anterior (`18.234.66.181`) | Me conecto con la IP elástica (Captura 10) |
-| **[PENDIENTE: confirmar]** Añadí el dominio al `/etc/hosts` de la instancia en vez de en el de mi equipo | Misma confusión entre las dos terminales | La línea `52.3.52.227 practica-https.test` va en el `/etc/hosts` de mi PC, que es desde donde se hacen las comprobaciones 6 a 9 |
 
 ---
 
@@ -530,7 +499,7 @@ Acceso a `https://practica-https.test` desde el navegador de mi equipo.
 - Separar la configuración (`.env`) del código (scripts y plantillas) permite publicar el repositorio sin exponer la IP, los datos personales ni la clave privada. Con el `.gitignore` y revisando `git status` antes de cada commit, me aseguré de que ni el `.env` ni la clave llegaran a GitHub.
 - La IP elástica es necesaria cuando la IP forma parte de la configuración: si cambiara, el certificado y el `hosts` dejarían de ser válidos.
 - El certificado autofirmado cifra igual que uno de una CA, pero no demuestra la identidad del servidor ante el navegador. Para un sitio público habría que usar una CA, por ejemplo Let's Encrypt.
-- Lo que más me costó fue distinguir en qué máquina tenía que hacer cada cosa (mi equipo o la instancia) y la autenticación de GitHub con token. **[PENDIENTE: revisar y adaptar con tus palabras.]**
+- Lo que más me costó fue distinguir en qué máquina tenía que hacer cada cosa (mi equipo o la instancia) y la autenticación de GitHub con token.
 
 ---
 
